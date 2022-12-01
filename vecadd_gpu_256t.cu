@@ -5,10 +5,10 @@
 __global__
 void add(int n, float *x, float *y)
 {
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
-    int stride = blockDim.x * gridDim.x;
-    for (int i = index; i < n; i += stride)
-        y[i] = x[i] + y[i];
+  int index = threadIdx.x;
+  int stride = blockDim.x;
+  for (int i = index; i < n; i += stride)
+      y[i] = x[i] + y[i];
 }
 
 int main(void)
@@ -32,12 +32,6 @@ int main(void)
 
     // Wait for GPU to finish before accessing on host
     cudaDeviceSynchronize();
-
-    int blockSize = 256;
-    int numBlocks = (N + blockSize - 1) / blockSize;
-    add<<<numBlocks, blockSize>>>(N, x, y);
-
-    std::cout << "Number of thread blocks " << numBlocks << std::endl;
 
     // Check for errors (all values should be 3.0f)
     float maxError = 0.0f;
