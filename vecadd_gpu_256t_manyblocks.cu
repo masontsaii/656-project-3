@@ -37,7 +37,7 @@ int main(void)
     int numBlocks = (N + blockSize - 1) / blockSize;
     add<<<numBlocks, blockSize>>>(N, x, y);
 
-    std::cout << "Number of thread blocks" << numBlocks << std::endl;
+    std::cout << "Number of thread blocks " << numBlocks << std::endl;
 
     // Check for errors (all values should be 3.0f)
     float maxError = 0.0f;
