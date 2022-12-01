@@ -12,7 +12,7 @@ void add(int n, float *x, float *y)
 
 int main(int ac, char *av[])
 {
-    int N = 1<<20; // 1M elements
+    int N = 1<<24; // 1M elements
 
     float *x = new float[N];
     float *y = new float[N];
