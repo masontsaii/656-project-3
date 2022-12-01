@@ -1,5 +1,7 @@
 #include <iostream>
 #include <math.h>
+#include <chrono>
+#include <iomanip>
 // Kernel function to add the elements of two arrays
 __global__
 void add(int n, float *x, float *y)
@@ -23,8 +25,15 @@ int main(void)
         y[i] = 2.0f;
     }
 
+    std::cout << std::fixed << std::setprecision(5);
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time = std::chrono::high_resolution_clock::now();
+
     // Run kernel on 1M elements on the GPU
     add<<<1, 1>>>(N, x, y);
+
+    std::chrono::time_point<std::chrono::high_resolution_clock> end_time = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end_time - start_time;
+    std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 
     // Wait for GPU to finish before accessing on host
     cudaDeviceSynchronize();
