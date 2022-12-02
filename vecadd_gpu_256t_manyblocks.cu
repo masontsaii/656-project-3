@@ -26,9 +26,6 @@ int main(void)
         y[i] = 2.0f;
     }
 
-    // Run kernel on 1M elements on the GPU
-    add<<<1, 256>>>(N, x, y);
-
 
     // Wait for GPU to finish before accessing on host
     cudaDeviceSynchronize();
