@@ -21,8 +21,8 @@ int main(void)
     cudaMallocManaged(&y, N*sizeof(float));
 
     int deviceID = 0;
-    cudaMemPrefetchAsync(void *x, N*sizeof(float), deviceID);
-    cudaMemPrefetchAsync(void *y, N*sizeof(float), deviceID);
+    cudaMemPrefetchAsync((void *)x, N*sizeof(float), deviceID);
+    cudaMemPrefetchAsync((void *)y, N*sizeof(float), deviceID);
 
     // initialize x and y arrays on the host
     for (int i = 0; i < N; i++) {
