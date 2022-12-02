@@ -25,16 +25,17 @@ int main(void)
         x[i] = 1.0f;
         y[i] = 2.0f;
     }
-
-
-    // Wait for GPU to finish before accessing on host
-    cudaDeviceSynchronize();
-
+    
+    
     int blockSize = 256;
     int numBlocks = (N + blockSize - 1) / blockSize;
     add<<<numBlocks, blockSize>>>(N, x, y);
 
     std::cout << "Number of thread blocks " << numBlocks << std::endl;
+
+
+    // Wait for GPU to finish before accessing on host
+    cudaDeviceSynchronize();
 
     // Check for errors (all values should be 3.0f)
     float maxError = 0.0f;
